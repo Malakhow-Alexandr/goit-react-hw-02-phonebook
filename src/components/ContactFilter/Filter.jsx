@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterStyledLabel, FilterStyledInput } from './ContactFilter.styled';
+import { FilterStyledLabel, FilterStyledInput } from './Filter.styled';
 
 export const ContactFilter = ({ value, onChange }) => {
   return (
