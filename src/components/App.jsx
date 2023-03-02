@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactsList } from './contactsList/ContactLis';
 import { ContactForm } from './contactForm/ContactForm';
-import { ContactFilter } from './contactFilter/filter';
+import { ContactFilter } from './contactFilter/Filter';
+import { Section } from './Section/Section';
 
 export class App extends Component {
   state = {
@@ -16,17 +17,18 @@ export class App extends Component {
   };
 
   addContact = (name, number) => {
+    if (this.state.contacts.map(contact => contact.name).includes(name)) {
+      return alert(`${name} is alredy in contacts.`);
+    }
     const contact = {
       id: nanoid(),
       name,
       number,
     };
 
-    this.state.contacts.name === name
-      ? alert()
-      : this.setState(({ contacts }) => ({
-          contacts: [contact, ...contacts],
-        }));
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
   };
 
   deleteContact = contactId => {
@@ -46,16 +48,26 @@ export class App extends Component {
     return (
       <div
         style={{
-          height: '100vh',
+          border: '1px solid black',
+          padding: '20px',
+          borderRadius: '20px',
+          width: 500,
+          margin: 'auto',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
+          background: 'teal',
           alignItems: 'center',
           fontSize: 15,
           color: '#010101',
+          boxShadow: 'rgb(0 0 0 / 50%) 0px 2px 7px',
         }}
       >
-        <ContactForm onSubmit={this.addContact}></ContactForm>
-        <div>
+        <Section title={'Phonebook'}>
+          <ContactForm onSubmit={this.addContact}></ContactForm>
+        </Section>
+
+        <Section title={'Contacts'}>
           <ContactFilter
             value={this.state.filter}
             onChange={this.changeFilter}
@@ -64,7 +76,7 @@ export class App extends Component {
             contacts={filteredContacts}
             onDelete={this.deleteContact}
           />
-        </div>
+        </Section>
       </div>
     );
   }
