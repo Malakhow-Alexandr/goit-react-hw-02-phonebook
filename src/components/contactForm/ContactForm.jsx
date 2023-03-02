@@ -1,4 +1,7 @@
 import { ErrorMessage, Formik } from 'formik';
+import * as yup from 'yup';
+import PropTypes from 'prop-types';
+
 import {
   StyledForm,
   Label,
@@ -6,7 +9,6 @@ import {
   StyledField,
   Button,
 } from './ContactForm.styled';
-import * as yup from 'yup';
 
 const validationSchema = yup.object().shape({
   name: yup
@@ -64,4 +66,8 @@ export const ContactForm = ({ onSubmit }) => {
       </StyledForm>
     </Formik>
   );
+};
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
